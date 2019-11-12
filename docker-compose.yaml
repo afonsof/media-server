@@ -5,6 +5,7 @@ services:
   sonarr:
     image: linuxserver/sonarr
     container_name: sonarr
+    network_mode: host
     environment:
       - PUID=1000
       - PGID=1000
@@ -14,13 +15,12 @@ services:
       - /media/usbdisk/config/sonarr:/config
       - /media/usbdisk/tv-shows:/tv
       - /media/usbdisk/downloads:/downloads
-    ports:
-      - 8989:8989
     restart: unless-stopped
 
   radarr:
     image: linuxserver/radarr
     container_name: radarr
+    network_mode: host
     environment:
       - PUID=1000
       - PGID=1000
@@ -30,8 +30,6 @@ services:
       - /media/usbdisk/config/radarr:/config
       - /media/usbdisk/movies:/movies
       - /media/usbdisk/downloads:/downloads
-    ports:
-      - 7878:7878
     restart: unless-stopped
 
   deluge:
@@ -73,6 +71,7 @@ services:
   bazarr:
     image: linuxserver/bazarr
     container_name: bazarr
+    network_mode: host
     environment:
       - PUID=1000
       - PGID=1000
@@ -82,7 +81,5 @@ services:
       - /media/usbdisk/config/bazaar:/config
       - /media/usbdisk/movies:/movies
       - /media/usbdisk/tv-shows:/tv
-    ports:
-      - 6767:6767
     restart: unless-stopped
 
