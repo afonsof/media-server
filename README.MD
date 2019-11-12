@@ -9,23 +9,10 @@ Esse é um passo a passo para configurar um servidor multimídia. No final dessa
 
 ### Material necessário
 * Raspberry Pi 3B ou superior
-* Raspbian 9 ou superior instalado com rede configurada
+* Raspbian 9 ou superior instalado com rede configurada ([Ajuda aqui](INSTALL_RASPBIAN))
 * HD USB com no mínimo 100GB para os filmes e configuração. (SSD recomendado)
 
 ### Passo 1
-Fazer checkout desse repositório na pasta /media-server do seu raspberrypi
-```
-https://github.com/afonsof/media-server.git media-server
-```
-
-### Passo 2
-Aumentar a memória de vídeo do dispositivo para 128MB
-```shell script
-sudo raspi-config
-```
-Ir na opção `Advanced Options > Memory Split` e setar para 128
-
-### Passo 3
 Aumentar a quantidade de memória Swap
 ```shell script
 sudo dphys-swapfile swapoff
@@ -37,7 +24,14 @@ Salvar e sair
 sudo dphys-swapfile swapon
 ```
 
-### Passo 4
+### Passo 2
+Aumentar a memória de vídeo do dispositivo para 128MB
+```shell script
+sudo raspi-config
+```
+Ir na opção `Advanced Options > Memory Split` e setar para 128
+
+### Passo 3
 Instalar as dependências genéricas
 ```shell script
 sudo apt install -y \
@@ -50,10 +44,11 @@ sudo apt install -y \
      libssl-dev \
      python \
      python-pip \
-     python-backports.ssl-match-hostname
+     python-backports.ssl-match-hostname \
+     git
 ```
 
-### Passo 5
+### Passo 4
 Instalar o Docker
 ```shell script
 curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | sudo apt-key add -
@@ -63,17 +58,19 @@ sudo apt update
 sudo apt install -y --no-install-recommends \
     docker-ce \
     cgroupfs-mount
+sudo groupadd docker
+sudo usermod -aG docker $USER
 sudo systemctl enable docker
 sudo systemctl start docker
 ```
 
-### Passo 6
+### Passo 5
 Instalar o docker compose. Este passo pode demorar bastante
 ```shell script
 sudo pip install docker-compose
 ```
 
-### Passo 7
+### Passo 6
 Configurar o HD Externo
 Apontar o disco fat para o /media/usbdisk dando todas as permissões necessárias
 ```
@@ -81,16 +78,26 @@ sudo mkdir /media/usbdisk
 echo "/dev/sda1    /media/usbdisk   vfat    rw,user,exec,umask=0000     0        0" >> /etc/fstab
 ```
 
+### Passo 7
+Entrar na console do dispositivo e fazer clone desse repositório na pasta `/media-server`
+```shell script
+git clone https://github.com/afonsof/media-server.git /media-server
+cd /media-server
+```
+
 ### Passo 8
+Testar o docker compose
+```shell script
+docker-compose up
+```
+
+### Passo 9
 Subir docker-compose como serviço.
 Copiar o script para a pasta do sistema
 ```
-cp media-server.service /etc/systemd/system/media-server.service
-sudo reboot
-```
-Após o reboot, cheque se está tudo certo
-```
-systemctl status media-server
+sudo cp media-server.service /etc/systemd/system/media-server.service
+sudo systemctl enable docker-compose-app
+sudo systemctl start docker-compose-app
 ```
 
 ### Considerações finais
