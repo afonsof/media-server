@@ -78,7 +78,7 @@ services:
       - TZ=America/Sao_Paulo
       - UMASK_SET=022 #optional
     volumes:
-      - /media/usbdisk/config/bazaar:/config
+      - /media/usbdisk/config/bazarr:/config
       - /media/usbdisk/movies:/movies
       - /media/usbdisk/tv-shows:/tv
     restart: unless-stopped
