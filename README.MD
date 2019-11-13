@@ -96,8 +96,8 @@ Subir docker-compose como serviço.
 Copiar o script para a pasta do sistema
 ```
 sudo cp media-server.service /etc/systemd/system/media-server.service
-sudo systemctl enable docker-compose-app
-sudo systemctl start docker-compose-app
+sudo systemctl enable media-server.service
+sudo systemctl start media-server.service
 ```
 
 ### Considerações finais
