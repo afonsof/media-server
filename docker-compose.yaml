@@ -9,7 +9,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Sao_Paulo
-      - UMASK_SET=022 #optional
+      - UMASK_SET=022
     volumes:
       - /media/usbdisk/config/sonarr:/config
       - /media/usbdisk/tv-shows:/tv
@@ -24,7 +24,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Sao_Paulo
-      - UMASK_SET=022 #optional
+      - UMASK_SET=022
     volumes:
       - /media/usbdisk/config/radarr:/config
       - /media/usbdisk/movies:/movies
@@ -38,33 +38,16 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=timezone
-      - UMASK_SET=022 #optional
-      - DELUGE_LOGLEVEL=error #optional
+      - TZ=America/Sao_Paulo
+      - UMASK_SET=022
+      - DELUGE_LOGLEVEL=error
     volumes:
       - /media/usbdisk/config/deluge:/config
       - /media/usbdisk/downloads:/downloads
+      - /media/usbdisk/blackhole:/blackhole
+      - /media/usbdisk/other-downloads:/other-downloads
     ports:
       - 8112:8112
-    restart: unless-stopped
-
-  plex:
-    image: linuxserver/plex
-    container_name: plex
-    network_mode: host
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - VERSION=docker
-      - UMASK_SET=022 #optional
-    volumes:
-      - /media/usbdisk/config/plex:/config
-      - /media/usbdisk/tv-shows:/tv
-      - /media/usbdisk/movies:/movies
-      - /media/usbdisk/transcode:/transcode
-    ports:
-      - 32400:32400
-      - 33400:33400
     restart: unless-stopped
 
   bazarr:
@@ -75,7 +58,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Sao_Paulo
-      - UMASK_SET=022 #optional
+      - UMASK_SET=022
     volumes:
       - /media/usbdisk/config/bazarr:/config
       - /media/usbdisk/movies:/movies
@@ -95,3 +78,19 @@ services:
       - /media/usbdisk/blackhole:/downloads
     restart: unless-stopped
 
+  emby:
+    image: linuxserver/emby
+    container_name: emby
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Sao_Paulo
+      - UMASK_SET=022
+    volumes:
+      - /media/usbdisk/config/emby:/config
+      - /media/usbdisk/tv-shows:/tv
+      - /media/usbdisk/movies:/movies
+      - /media/usbdisk/other-downloads:/other-downloads
+      - /media/usbdisk/transcode:/transcode
+    restart: unless-stopped
