@@ -13,6 +13,7 @@ Esse é um passo a passo para configurar um servidor multimídia. No final dessa
 * HD USB com no mínimo 100GB para os filmes e configuração. (SSD recomendado)
 
 ### Passo 1
+Fazer esse passo apenas se o Raspberry tiver apenas 1GB de memória.
 Aumentar a quantidade de memória Swap
 ```shell script
 sudo dphys-swapfile swapoff
@@ -34,6 +35,7 @@ Ir na opção `Advanced Options > Memory Split` e setar para 128
 ### Passo 3
 Instalar as dependências genéricas
 ```shell script
+sudo apt update
 sudo apt install -y \
      apt-transport-https \
      ca-certificates \
@@ -106,4 +108,12 @@ Os servidores estarão disponíveis nos seguintes endereços:
 * Radarr: http://ip:7878
 * Bazarr: http://ip:6767
 * Deluge: http://ip:8112
-* Plex: http://ip:32400
+* Emby: http://ip:8096
+
+### Configuração
+* Deluge
+    - mudar a pasta de downloads de `/root/Downloads` para `/downloads`
+* Sonarr:
+    - Download Client: Deluge
+    - Indexer: Rarbg
+    - Quality:   

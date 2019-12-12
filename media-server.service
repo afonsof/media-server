@@ -6,7 +6,7 @@ Requires=docker.service
 After=docker.service
 
 [Service]
-WorkingDirectory=/media-server
+WorkingDirectory=/media/usbdisk/media-server
 ExecStart=/usr/local/bin/docker-compose up
 ExecStop=/usr/local/bin/docker-compose down
 TimeoutStartSec=0
