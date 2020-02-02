@@ -94,3 +94,19 @@ services:
       - /media/usbdisk/other-downloads:/other-downloads
       - /media/usbdisk/transcode:/transcode
     restart: unless-stopped
+  plex:
+    image: linuxserver/plex
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+      - UMASK_SET=022          
+      - PLEX_CLAIM=claim-wiVQy-4Y8e9JoxUeSRHR
+    volumes:
+      - /media/usbdisk/config/plex:/config
+      - /media/usbdisk/tv-shows:/tv
+      - /media/usbdisk/movies:/movies
+      - /media/usbdisk/other-downloads:/other-downloads
+    restart: unless-stopped
