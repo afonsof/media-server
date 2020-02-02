@@ -7,7 +7,7 @@ After=docker.service
 
 [Service]
 WorkingDirectory=/media/usbdisk/media-server
-ExecStart=/usr/local/bin/docker-compose pull && /usr/local/bin/docker-compose up
+ExecStart=start.sh
 ExecStop=/usr/local/bin/docker-compose down
 TimeoutStartSec=0
 Restart=always
