@@ -77,7 +77,7 @@ Configurar o HD Externo
 Apontar o disco fat para o /media/usbdisk dando todas as permissões necessárias
 ```
 sudo mkdir /media/usbdisk
-echo "/dev/sda1    /media/usbdisk   vfat    rw,user,exec,umask=0000     0        0" >> /etc/fstab
+echo "/dev/sda1    /media/usbdisk   vfat    auto,rw,user,sync,exec,dev,suid,uid=500,gid=500,umask=0000,nofail,iocharset=iso8859-1,codepage=850     0        0" >> /etc/fstab
 ```
 
 ### Passo 7
